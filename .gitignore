@@ -12,3 +12,4 @@ dist/
 private/
 src/pixera_mcp/api/*.json
 dist/
+build_mcpb/
