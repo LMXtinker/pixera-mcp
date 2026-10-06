@@ -42,10 +42,13 @@ offline call validation, Pixera should be installed on the same machine, or set 
 
 ### Publishing a release (maintainers)
 
-1. Bump `version` in `pyproject.toml`, commit.
-2. `git tag v<version> && git push --tags`.
-3. GitHub Actions runs the tests, builds the `.mcpb` (`tools/build_mcpb.py`) and creates the release.
-   Running extensions update on their next start.
+1. Bump `version` in `pyproject.toml`, run the tests, commit and push.
+2. `python tools/build_mcpb.py` (needs Node.js for `npx @anthropic-ai/mcpb`).
+3. `git tag v<version> && git push origin v<version>`
+4. `gh release create v<version> dist/pixera-mcp-<version>.mcpb --generate-notes`
+
+Running extensions pick up the release on their next start. Only code changes are applied
+automatically; if `dependencies` changed, teammates install the new `.mcpb` once.
 
 ## Install (Python package)
 

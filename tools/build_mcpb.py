@@ -1,7 +1,7 @@
 """Build the Claude Desktop extension: dist/pixera-mcp-<version>.mcpb.
 
-Stages mcpb/ (manifest, launcher, icon) plus a copy of src/pixera_mcp into
-build_mcpb/, writes the bundle's pyproject.toml from the root one (same version and
+Stages mcpb/ (manifest, launcher, icon) plus a copy of src/pixera_mcp into a
+temp folder (outside synced folders such as OneDrive, which lock files), writes the bundle's pyproject.toml from the root one (same version and
 dependencies, which the launcher compares against later releases), then runs the
 official packer: ``npx -y @anthropic-ai/mcpb pack``.
 
@@ -15,11 +15,12 @@ import json
 import shutil
 import subprocess
 import sys
+import tempfile
 import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-STAGE = ROOT / "build_mcpb"
+STAGE = Path(tempfile.gettempdir()) / "pixera-mcp-build"
 DIST = ROOT / "dist"
 
 
