@@ -1,0 +1,74 @@
+{
+  "manifest_version": "0.4",
+  "name": "pixera-mcp",
+  "display_name": "Pixera",
+  "version": "0.0.0",
+  "description": "Control and set up AV Stumpfl Pixera over its JSON/TCP API, plus offline projection-mapping guidance.",
+  "long_description": "Talks to Pixera's Native API (JSON/TCP(dl)). Inspect and build screens, resources, timelines and layers, assign 3D models, move projector mappings between outputs, call any API method with offline validation, and get projection-mapping and marker-calibration guidance.\n\nIn Pixera: Settings > API, add a JSON/TCP(dl) port (default here 1500) and switch off 'Restrict Web Access To Actions That Match Allowlist'. The API has no authentication: use it only on a trusted show network.\n\nThe extension updates itself from the GitHub releases of the repository on start (can be switched off in the settings).",
+  "author": {
+    "name": "LMXtinker",
+    "url": "https://github.com/LMXtinker"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LMXtinker/pixera-mcp"
+  },
+  "homepage": "https://github.com/LMXtinker/pixera-mcp",
+  "support": "https://github.com/LMXtinker/pixera-mcp/issues",
+  "icon": "icon.png",
+  "server": {
+    "type": "uv",
+    "entry_point": "launcher.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": ["run", "--directory", "${__dirname}", "launcher.py"],
+      "env": {
+        "PIXERA_HOST": "${user_config.pixera_host}",
+        "PIXERA_PORT": "${user_config.pixera_port}",
+        "PIXERA_PROTECTED_PREFIXES": "${user_config.protected_prefixes}",
+        "PIXERA_AUTO_UPDATE": "${user_config.auto_update}"
+      }
+    }
+  },
+  "user_config": {
+    "pixera_host": {
+      "type": "string",
+      "title": "Pixera host",
+      "description": "IP or hostname of the Pixera machine.",
+      "default": "127.0.0.1",
+      "required": true
+    },
+    "pixera_port": {
+      "type": "number",
+      "title": "Pixera API port",
+      "description": "JSON/TCP(dl) port set in Pixera's API settings.",
+      "default": 1500,
+      "min": 1,
+      "max": 65535,
+      "required": true
+    },
+    "protected_prefixes": {
+      "type": "string",
+      "title": "Protected timeline prefixes",
+      "description": "Comma-separated timeline name prefixes the tools never remove or rename. Leave empty to protect nothing.",
+      "default": "LE_",
+      "required": false
+    },
+    "auto_update": {
+      "type": "boolean",
+      "title": "Update from GitHub on start",
+      "description": "Download the latest release from github.com/LMXtinker/pixera-mcp when Claude starts the extension.",
+      "default": true,
+      "required": false
+    }
+  },
+  "tools_generated": true,
+  "keywords": ["pixera", "av stumpfl", "projection mapping", "media server", "show control"],
+  "license": "MIT",
+  "compatibility": {
+    "platforms": ["win32", "darwin", "linux"],
+    "runtimes": {
+      "python": ">=3.11"
+    }
+  }
+}

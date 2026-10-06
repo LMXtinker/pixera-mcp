@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+.env
+build/
+dist/
+
+# Local-only material: show notes, vendor files (AV Stumpfl API JSON), history backups
+private/
+src/pixera_mcp/api/*.json
+dist/
+build_mcpb/
